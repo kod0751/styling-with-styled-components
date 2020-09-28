@@ -17,6 +17,52 @@ const colorStyles = css`
     }} 
 `;
 
+const sizes ={
+    large: {
+        height: '3rem',
+        fontSize: '1.25rem'
+    },
+    medium: {
+        height: '2.25rem',
+        fontSize: '1rem'
+    },
+    small: {
+        height: '1.75rem',
+        fontSize: '0.875rem'
+    },
+};
+
+const sizeStyles = css`
+    ${({size}) => css`
+        height: ${sizes[size].height};
+        font-size: ${sizes[size].fontSize};
+    `}
+`;
+    /* ${props => 
+            props.size === 'large' &&
+            css`
+                height: 3rem;
+                font-size: 1.25rem;
+            `
+        }
+
+        ${props => 
+            props.size === 'medium' &&
+            css`
+                height: 2.25rem;
+                font-size: 1rem;
+            `
+        }
+
+        ${props => 
+            props.size === 'small' &&
+            css`
+                height: 1.75rem;
+                font-size: 0.875rem;
+            `
+        }
+    `; */
+
 const StyledButton = styled.button`
     /* 공통 스타일 */
     display: inline-flex;
@@ -30,8 +76,7 @@ const StyledButton = styled.button`
     padding-right: 1rem;
 
     /* 크기 */
-    height: 2.25rem;
-    font-size: 1rem;
+    ${sizeStyles}
 
     /* 색상 */
     ${colorStyles}
@@ -50,16 +95,17 @@ const StyledButton = styled.button`
     };
 `;
 
-function Button({ children, color, ...rest }) {
+function Button({ children, color, size, ...rest }) {
     return(
-        <StyledButton color={color} {...rest}>
+        <StyledButton color={color} size={size} {...rest}>
             {children}
         </StyledButton>
     );
 }
 
 Button.defaultProps = {
-    color: 'blue'
+    color: 'blue',
+    size: 'medium',
 };
 
 export default Button;
